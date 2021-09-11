@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {ScrollView, Text, View, Image, TouchableOpacity} from 'react-native';
-import {Picker} from '@react-native-community/picker';
-import {styles} from '../styles';
+import React, { Component } from "react";
+import { ScrollView, Text, View, Image, TouchableOpacity } from "react-native";
+import { Picker } from "@react-native-community/picker";
+import { styles } from "../styles";
 
 export default class Product extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ export default class Product extends Component {
       hidePassword: true,
       isChecked: false,
       sizeValue: null,
-      filterValue: '',
+      filterValue: "",
       colorsList: [],
 
       productsList: [],
@@ -29,8 +29,8 @@ export default class Product extends Component {
         if (
           !modifiedArray.some((item2) =>
             compareProps.every(
-              (eachProps) => item2[eachProps] === item[eachProps],
-            ),
+              (eachProps) => item2[eachProps] === item[eachProps]
+            )
           )
         ) {
           modifiedArray.push(item);
@@ -41,13 +41,13 @@ export default class Product extends Component {
   };
   getProductsList = () => {
     fetch(
-      'https://my-json-server.typicode.com/benirvingplt/products/products',
+      "https://my-json-server.typicode.com/benirvingplt/products/products",
       {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      },
+      }
     )
       .then((response) => response.json())
       .then((res) => {
@@ -55,11 +55,11 @@ export default class Product extends Component {
         let newArray = res;
 
         res.map((item) => {
-          temp.push({color: item.colour});
+          temp.push({ color: item.colour });
         });
         newArray.map((item) => {
           item.price = Math.ceil(item.price);
-          item['qty'] = 0;
+          item["qty"] = 0;
         });
         this.setState({
           productsList: newArray,
@@ -78,10 +78,10 @@ export default class Product extends Component {
         return item;
       }
     });
-    if (itemValue !== '') {
-      this.setState({filterValue: itemValue, cuurentList: temp});
+    if (itemValue !== "") {
+      this.setState({ filterValue: itemValue, cuurentList: temp });
     } else {
-      this.setState({filterValue: '', cuurentList: this.state.productsList});
+      this.setState({ filterValue: "", cuurentList: this.state.productsList });
     }
   };
   addProduct = (item, index) => {
@@ -125,16 +125,17 @@ export default class Product extends Component {
   }
 
   render() {
-    const {colorsList, cuurentList} = this.state;
+    const { colorsList, cuurentList } = this.state;
     return (
       <View style={styles.container}>
-        {/* <ScrollView>
+        <ScrollView>
           {colorsList.length !== 0 ? (
             <View style={styles.filterContainer}>
               <Picker
                 selectedValue={this.state.filterValue}
-                onValueChange={(itemValue) => this.handleChange(itemValue)}>
-                <Picker.Item label={'Color Filter'} value={''} />
+                onValueChange={(itemValue) => this.handleChange(itemValue)}
+              >
+                <Picker.Item label={"Color Filter"} value={""} />
 
                 {colorsList.map((item) => (
                   <Picker.Item label={item.color} value={item.color} />
@@ -168,21 +169,25 @@ export default class Product extends Component {
                         padding: 8,
 
                         flex: 1,
-                      }}>
+                      }}
+                    >
                       <View style={styles.actionContainer}>
                         <TouchableOpacity
-                          onPress={() => this.removeProduct(item, index)}>
+                          onPress={() => this.removeProduct(item, index)}
+                        >
                           <Text style={styles.fontSize24}>-</Text>
                         </TouchableOpacity>
                         <View style={styles.removeAllContainer}>
                           <Text>{item.qty}</Text>
                           <TouchableOpacity
-                            onPress={() => this.removeAll(item, index)}>
+                            onPress={() => this.removeAll(item, index)}
+                          >
                             <Text style={styles.remove}>Remove</Text>
                           </TouchableOpacity>
                         </View>
                         <TouchableOpacity
-                          onPress={() => this.addProduct(item, index)}>
+                          onPress={() => this.addProduct(item, index)}
+                        >
                           <Text style={styles.fontSize24}>+</Text>
                         </TouchableOpacity>
                       </View>
@@ -198,7 +203,7 @@ export default class Product extends Component {
               </Text>
             </View>
           ) : null}
-        </ScrollView> */}
+        </ScrollView>
       </View>
     );
   }
