@@ -138,14 +138,18 @@ export default class Product extends Component {
                 <Picker.Item label={"Color Filter"} value={""} />
 
                 {colorsList.map((item) => (
-                  <Picker.Item label={item.color} value={item.color} />
+                  <Picker.Item
+                    key={item.color}
+                    label={item.color}
+                    value={item.color}
+                  />
                 ))}
               </Picker>
             </View>
           ) : null}
           {cuurentList.length !== 0
             ? cuurentList.map((item, index) => (
-                <View>
+                <View key={item.id}>
                   <View style={styles.listRow}>
                     <View style={styles.imageContainer}>
                       <Image
